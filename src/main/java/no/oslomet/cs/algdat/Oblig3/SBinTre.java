@@ -143,11 +143,20 @@ public class SBinTre<T> {
         throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
 
-    //Oppgave 2
+    /**
+     * Denne metoden teller antall forekomster av en verdi i et BST.
+     * Metoden bruker en liknende while-løkke som i inneholder(), men den fortsetter
+     * etter verdien er funnet, ved å flytte pekeren mot høyre barn.
+     *
+     * @param verdi sjekkes for om antall forekomster i treet.
+     * @return antall forekomster av verdien. Antall er initialisert til 0 ved start slik at det blir returnert
+     * 0 dersom det ikke er noen forekomster av verdien.
+     */
     public int antall(T verdi) {
 
-        //initialiserer antall til 0
+        //initialiserer antall til 0. Dersom verdi ikke blir funnet er det dette som returneres.
         int antall = 0;
+
 
         //sjekker først om listen er tom, og at listen inneholder verdien vi leter etter
         if(!tom() && inneholder(verdi)){
