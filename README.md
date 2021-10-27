@@ -15,4 +15,7 @@ blir brukt til å sammenligne Generics-verdier. Når pekeren til slutt når en n
 det om verdien skal bli lagt til som høyre eller venstre barn, og antall blir til slutt øket med 1
 når dette er fullført.
 
-I oppgave 2 så brukte jeg en ... til å ...
+I oppgave 2 så brukte jeg en while-løkke, liknende løkken i inneholder(), til å løpe gjennom løkken for å finne duplikater av en verdi. 
+Så fort verdien vi leter etter er funnet, økes antall og node-pekeren p flyttes mot høyre, da det er i denne retningen
+en evt lik verdi må ligge. Løkken fortsetter slik til node-peker p er null, dvs på enden av grenen duplikater
+skulle ha ligget.

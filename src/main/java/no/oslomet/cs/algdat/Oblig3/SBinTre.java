@@ -159,7 +159,7 @@ public class SBinTre<T> {
             while (p != null) {
                 int cmp = comp.compare(verdi, p.verdi);
                 if (cmp < 0) p = p.venstre; //verdi er mindre p.verdi
-                else if (cmp > 0) p = p.høyre; //verdi er større enn p.verdo
+                else if (cmp > 0) p = p.høyre; //verdi er større enn p.verdi
                 else {
                     //Vi har funnet verdien. Dersom det er flere av samme verdi, må disse ligge mot høyre.
                     antall++;
