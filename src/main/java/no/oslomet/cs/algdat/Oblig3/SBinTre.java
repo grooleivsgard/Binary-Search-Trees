@@ -7,6 +7,8 @@ import java.util.Objects;
 import java.util.StringJoiner;
 
 public class SBinTre<T> {
+
+
     private static final class Node<T>   // en indre nodeklasse
     {
         private T verdi;                   // nodens verdi
@@ -141,8 +143,32 @@ public class SBinTre<T> {
         throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
 
+    //Oppgave 2
     public int antall(T verdi) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+
+        //initialiserer antall til 0
+        int antall = 0;
+
+        //sjekker først om listen er tom, og at listen inneholder verdien vi leter etter
+        if(!tom() && inneholder(verdi)){
+
+            //setter node-peker p til rot-noden
+            Node<T> p = rot;
+
+            //løper gjennom treet så lenge p ikke er null
+            while (p != null) {
+                int cmp = comp.compare(verdi, p.verdi);
+                if (cmp < 0) p = p.venstre; //verdi er mindre p.verdi
+                else if (cmp > 0) p = p.høyre; //verdi er større enn p.verdo
+                else {
+                    //Vi har funnet verdien. Dersom det er flere av samme verdi, må disse ligge mot høyre.
+                    antall++;
+                    p = p.høyre;
+                }
+            }
+        }
+        return antall;
+
     }
 
     public void nullstill() {
