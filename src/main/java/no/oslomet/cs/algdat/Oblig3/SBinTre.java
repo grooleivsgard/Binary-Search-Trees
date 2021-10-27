@@ -5,17 +5,22 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class SBinTre<T> {
 
     public static void main(String[] args) {
         SBinTre<Integer> tre =
                 new SBinTre<>(Comparator.naturalOrder());
-        int[] a = {6, 14, 1, 8, 12, 3, 7, 9, 11, 13, 2, 5, 4};
-        for (int verdi : a) tre.leggInn(verdi);
-        String s = tre.toStringPostOrder();
 
-        System.out.println(s);
+        // legger inn verdier i treet
+        int[] a = {10, 6, 14, 1, 8, 12, 3, 7, 9, 11, 13, 2, 5, 4};
+        for (int verdi : a) tre.leggInn(verdi);
+        //Denne lambda-funksjonen skriver ut mellomrom før nodens verdi.
+        AtomicReference<String> postorden = new AtomicReference<>();
+        Oppgave<Integer> oppgave = c -> postorden.set(postorden.get() + " " + c.toString()) ;
+
+        tre.postordenRecursive(oppgave);
     }
 
     private static final class Node<T>   // en indre nodeklasse
@@ -254,32 +259,35 @@ public class SBinTre<T> {
     }
 
     // ------- OPPGAVE 4 ------------------
+
+    /**
+     * Metoden finner først førstePostorden, for deretter å
+     * gå inn i en while løkke som finner nestePostorden og skriver ut disse i postorden
+     * frem til noden sin verdi er null.
+     * @param oppgave som skriver ut treet.
+     */
     public void postorden(Oppgave<? super T> oppgave) {
-        /**
-         * Du skal implementere den første funksjonen uten bruk av
-         * rekursjon og uten bruk av hjelpevariabler som stack / queue. Du skal bruke funksjonen
-         * nestePostorden fra forrige oppgave. Start med å finne den første noden p i postorden.
-         * Deretter vil (f.eks. i en while-løkke) setningen: p = nestePostorden(p); gi den neste. Osv.
-         * til p blir null.
-         */
 
         if(tom()) return;
 
         Node<T> p = førstePostorden(rot); //setter nodepeker p til første postorden
 
+        //Så lenge nestePostorden ikke er null, skrives p.verdi ut
+        // og p blir endret til nestePostorden.
         while(nestePostorden(p) != null){
             oppgave.utførOppgave(p.verdi);
             p = nestePostorden(p);
         }
 
+        //p.verdi skrives ut
         oppgave.utførOppgave(p.verdi);
     }
 
+    /**
+     * Metodene har et rekursivt kall som traverserer treet i postorden rekkefølge.
+     * @param oppgave som skriver ut treet.
+     */
     public void postordenRecursive(Oppgave<? super T> oppgave) {
-        /**
-         * For den rekursive metoden skal du lage et rekursivt kall som traverserer treet
-         * i postorden rekkefølge.
-         */
 
         postordenRecursive(rot, oppgave);
     }
@@ -297,7 +305,6 @@ public class SBinTre<T> {
         postordenRecursive(p.høyre, oppgave);
         //Utfører oppgaven på denne noden
         oppgave.utførOppgave(p.verdi);
-
     }
 
     public ArrayList<T> serialize() {

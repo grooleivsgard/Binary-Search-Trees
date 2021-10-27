@@ -30,3 +30,9 @@ i kompendiet, kap. 5.1.7:
   - Hvis p er enebarn (p.forelder.høyre er null), er forelder neste postorden.
   - Hvis p ikke er enebarn (p.forelder.høyre er ikke null), er det høyre barnet til 
     forelderen (p.forelder.høyre) den neste postorden.
+
+I oppgave 4, for den ikke-rekursive metoden, startet jeg ved rot-noden og flyttet herfra en peker-node p gjennom 
+binærtreet i postorden rekkefølge ved hjelp av en while-løkke, frem til siste node, roten, er nådd. For de rekursive
+metodene traverserte jeg binærtreet i postorden rekkefølge ved å kalle rekursivt på venstre og høyre barn, og til slutt
+skrive ut verdiene med utførOppgave. Basistilfellet er satt til når pekeren p blir null.
+
