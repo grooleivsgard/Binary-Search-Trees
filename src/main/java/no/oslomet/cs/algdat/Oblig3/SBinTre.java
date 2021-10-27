@@ -3,6 +3,7 @@ package no.oslomet.cs.algdat.Oblig3;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Objects;
 import java.util.StringJoiner;
 
 public class SBinTre<T> {
@@ -82,8 +83,54 @@ public class SBinTre<T> {
         return antall == 0;
     }
 
+    //Oppgave 1
+
+    /**
+     * Oppgave 1 bruker kildekode fra 5.3.2 i kompendiet.
+     *
+     * @param verdi skal legges inn som ny node i binærtreet.
+     * @return true når verdien er lagt inn.
+     */
     public boolean leggInn(T verdi) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+
+        Objects.requireNonNull(verdi, "Ulovlig med nullverdier!");
+
+
+        if(rot == null){
+            //Treet er tomt
+            rot = new Node<>(verdi, null);
+        }
+        else {
+            //Treet er ikke tomt
+            //Node pekere p og q blir initialisert,
+            // samt variabel cmp til sammenligning av verdier.
+            Node<T> p = rot;
+            Node <T> q = null;
+            int cmp;
+
+            while(p != null){
+                //setter q-pekeren til p, og flytter p slik at q peker på forelder til p
+                q = p;
+                cmp = comp.compare(verdi, p.verdi);
+                if(cmp < 0) //verdiene er like
+                {
+                    p = p.venstre;
+                } else //verdiene er ikke like
+                {
+                    p = p.høyre;
+                }
+            }
+            //finner plassen i treet hvor verdien skal legges inn
+            cmp = comp.compare(verdi, q.verdi);
+            if(cmp == -1){ //verdi < q.verdi
+                q.venstre = new Node<>(verdi, q);
+            } else { //verdi >= q.verdi
+                q.høyre = new Node<>(verdi, q);
+            }
+
+        }
+        antall++;
+        return true;
     }
 
     public boolean fjern(T verdi) {
