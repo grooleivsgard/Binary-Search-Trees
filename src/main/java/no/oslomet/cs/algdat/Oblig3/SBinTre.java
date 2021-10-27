@@ -94,7 +94,7 @@ public class SBinTre<T> {
         return antall == 0;
     }
 
-    //Oppgave 1
+    // --------- OPPGAVE 1 --------------
 
     /**
      * Oppgave 1 bruker kildekode fra 5.3.2 i kompendiet.
@@ -152,6 +152,8 @@ public class SBinTre<T> {
         throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
 
+
+    // ------- OPPGAVE 2 ------------------
     /**
      * Denne metoden teller antall forekomster av en verdi i et BST.
      * Metoden bruker en liknende while-løkke som i inneholder(), men den fortsetter
@@ -193,6 +195,7 @@ public class SBinTre<T> {
         throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
 
+    // ------- OPPGAVE 3 ------------------
     /**
      * Metoden finner første postorden i et Binary Search Tree.
      * @param p er rotpekeren.
@@ -250,16 +253,51 @@ public class SBinTre<T> {
 
     }
 
+    // ------- OPPGAVE 4 ------------------
     public void postorden(Oppgave<? super T> oppgave) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        /**
+         * Du skal implementere den første funksjonen uten bruk av
+         * rekursjon og uten bruk av hjelpevariabler som stack / queue. Du skal bruke funksjonen
+         * nestePostorden fra forrige oppgave. Start med å finne den første noden p i postorden.
+         * Deretter vil (f.eks. i en while-løkke) setningen: p = nestePostorden(p); gi den neste. Osv.
+         * til p blir null.
+         */
+
+        if(tom()) return;
+
+        Node<T> p = førstePostorden(rot); //setter nodepeker p til første postorden
+
+        while(nestePostorden(p) != null){
+            oppgave.utførOppgave(p.verdi);
+            p = nestePostorden(p);
+        }
+
+        oppgave.utførOppgave(p.verdi);
     }
 
     public void postordenRecursive(Oppgave<? super T> oppgave) {
+        /**
+         * For den rekursive metoden skal du lage et rekursivt kall som traverserer treet
+         * i postorden rekkefølge.
+         */
+
         postordenRecursive(rot, oppgave);
     }
 
     private void postordenRecursive(Node<T> p, Oppgave<? super T> oppgave) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+
+        //Basistilfellet
+        if(p == null) return;
+
+        //Traverserer binærtreet etter postorden
+
+        //Rekursivt kall for venstre barn
+        postordenRecursive(p.venstre, oppgave);
+        //Rekursivt kall for høyre barn
+        postordenRecursive(p.høyre, oppgave);
+        //Utfører oppgaven på denne noden
+        oppgave.utførOppgave(p.verdi);
+
     }
 
     public ArrayList<T> serialize() {
