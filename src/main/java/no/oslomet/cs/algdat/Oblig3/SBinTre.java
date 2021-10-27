@@ -8,6 +8,15 @@ import java.util.StringJoiner;
 
 public class SBinTre<T> {
 
+    public static void main(String[] args) {
+        SBinTre<Integer> tre =
+                new SBinTre<>(Comparator.naturalOrder());
+        int[] a = {6, 14, 1, 8, 12, 3, 7, 9, 11, 13, 2, 5, 4};
+        for (int verdi : a) tre.leggInn(verdi);
+        String s = tre.toStringPostOrder();
+
+        System.out.println(s);
+    }
 
     private static final class Node<T>   // en indre nodeklasse
     {
@@ -184,6 +193,12 @@ public class SBinTre<T> {
         throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
 
+    /**
+     * Metoden finner første postorden i et Binary Search Tree.
+     * @param p er rotpekeren.
+     * @param <T> Node er av type Generics.
+     * @return første node i postorden.
+     */
     private static <T> Node<T> førstePostorden(Node<T> p) {
 
         //Bruker Programkode 5.1.7 h) i kompendiet.
@@ -200,6 +215,12 @@ public class SBinTre<T> {
         }
     }
 
+    /**
+     * Metoden finner neste node i postorden.
+     * @param p nodepekeren vi bruker til å finne neste postorden.
+     * @param <T> Noden er av type Generics.
+     * @return noden som kommer etter p i postorden.
+     */
     private static <T> Node<T> nestePostorden(Node<T> p) {
 
         //hvis nestePostOrden er roten

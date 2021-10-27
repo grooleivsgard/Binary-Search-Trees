@@ -19,3 +19,14 @@ I oppgave 2 så brukte jeg en while-løkke, liknende løkken i inneholder(), til
 Så fort verdien vi leter etter er funnet, økes antall og node-pekeren p flyttes mot høyre, da det er i denne retningen
 en evt lik verdi må ligge. Løkken fortsetter slik til node-peker p er null, dvs på enden av grenen duplikater
 skulle ha ligget.
+
+I oppgave 3 brukte jeg pseudokoden fra 5.1.7 h) i kompendiet for å finne første postorden. Her blir en while-løkke
+brukt til å traversere mot venstre gjennom treet, og første postorden blir funnet ved første bladnode som ikke har
+noen venstre eller høyre barn. For å finne neste postorden, har jeg tatt utgangspunkt i følgende tilfeller, som beskrevet 
+i kompendiet, kap. 5.1.7:
+- Hvis p ikke har en forelder, er p rotnoden og også den siste noden i postorden.
+- Hvis p er høyre barn til sin forelder, er forelder f neste postorden.
+- Hvis p er venstre barn til sin forelder, gjelder:
+  - Hvis p er enebarn (p.forelder.høyre er null), er forelder neste postorden.
+  - Hvis p ikke er enebarn (p.forelder.høyre er ikke null), er det høyre barnet til 
+    forelderen (p.forelder.høyre) den neste postorden.
