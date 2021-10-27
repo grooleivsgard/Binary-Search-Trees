@@ -185,11 +185,48 @@ public class SBinTre<T> {
     }
 
     private static <T> Node<T> førstePostorden(Node<T> p) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+
+        //Bruker Programkode 5.1.7 h) i kompendiet.
+        //Finner første postorden ved å traverse til bladnoden lengst til venstre i treet.
+
+        while(true) {
+            if (p.venstre != null){
+                p = p.venstre;
+            } else if (p.høyre != null){
+                p = p.høyre;
+            } else {
+                return p;
+            }
+        }
     }
 
     private static <T> Node<T> nestePostorden(Node<T> p) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+
+        //hvis nestePostOrden er roten
+        if(p.forelder == null){
+            return null;
+        }
+
+        //hvis p er høyre barn til forelder
+        if(p == p.forelder.høyre) {
+           return p.forelder;
+        }
+        //hvis p er venstre barn til forelder
+        else if (p == p.forelder.venstre){
+            //hvis venstre barn er enebarn
+            if (p.forelder.høyre == null) {
+                return p.forelder;
+            }
+            //p er ikke enebarn / høyre barn er ikke null
+            else {
+                return førstePostorden(p.forelder.høyre);
+            }
+
+        } else {
+            //nås aldri
+            return null;
+        }
+
     }
 
     public void postorden(Oppgave<? super T> oppgave) {
