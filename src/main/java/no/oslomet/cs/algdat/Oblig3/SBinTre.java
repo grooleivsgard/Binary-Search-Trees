@@ -316,10 +316,44 @@ public class SBinTre<T> {
         oppgave.utførOppgave(p.verdi);
     }
 
+    /**
+     * Metoden serialize går iterativt gjennom et binærtre i nivåorden og legger verdier inn i en ArrayList
+     * fortløpende.
+     * @return ArrayList med verdier sortert i nivåorden
+     */
     public ArrayList<T> serialize() {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+
+        ArrayList<T> toList = new ArrayList<>();
+        toList.add(rot.verdi);
+
+
+        Queue<Node<T>> queue = new LinkedList<>();
+        queue.add(rot);
+
+        Node<T> current;
+
+        while (!queue.isEmpty()) {
+            current = queue.remove();
+            if (current.venstre != null) {
+                toList.add(current.venstre.verdi);
+                queue.add(current.venstre);
+            }
+            if (current.høyre != null) {
+                toList.add(current.høyre.verdi);
+                queue.add(current.høyre);
+            }
+        }
+        return toList;
     }
 
+    /**
+     * Metoden deserialize legger verdier fra en ArrayList med generiske verdier, K, inn i en ArrayList
+     * for å gjenskape et BST i nivåorden.
+     * @param data verdiene fra ArrayList som blir lagt inn som noder i treet.
+     * @param c Comparator brukes til å sortere verdiene i nivåorden
+     * @param <K> ArrayListen med generiske verdier vi skal gjøre om til et BST.
+     * @return Binærtreet.
+     */
     static <K> SBinTre<K> deserialize(ArrayList<K> data, Comparator<? super K> c) {
 
         /**
