@@ -279,6 +279,10 @@ public class SBinTre<T> {
 
     }
 
+    /**
+     * Metoden traverserer treet rekursivt ved at det er blitt lagt til en privat metode som
+     * sjekker en node's venstre og høyre barn og fjerner disse i postorden.
+     */
     public void nullstill() {
         if (tom()) return;
 
