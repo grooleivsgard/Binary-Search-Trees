@@ -223,6 +223,12 @@ public class SBinTre<T> {
         return true;
     }
 
+    /**
+     * Metoden tar i bruk en teller som registrerer antall verdier som fjernes. Med en while-løkke, brukes
+     * metoden fjern() på verdien, som vil avsluttes når verdien ikke lengre blir funnet.
+     * @param verdi - verdien som skal fjernes.
+     * @return antall verdier fjernet.
+     */
     public int fjernAlle(T verdi) {
 
         int teller = 0;
