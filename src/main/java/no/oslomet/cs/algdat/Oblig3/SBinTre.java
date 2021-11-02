@@ -321,7 +321,28 @@ public class SBinTre<T> {
     }
 
     static <K> SBinTre<K> deserialize(ArrayList<K> data, Comparator<? super K> c) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+
+        /**
+         * Deserialize skal da ta dette
+         * arrayet, og legge inn alle verdiene (igjen i nivå orden), og dermed gjenskape treet.
+         */
+
+        //ALT 1
+        //Legger verdi på indeks en inn i rot-node
+        //Legger neste indeks inn i rot-node.venstre barn
+        //Legger neste indeks inn i rot-node.høyre barn
+
+        //oppretter tre
+        SBinTre<K> tre = new SBinTre<>(c);
+
+
+        for (int i = 0; i < data.size(); i++) {
+            tre.leggInn(data.get(i));
+        }
+
+        //Hvordan returnere treet?
+        return tre;
+
     }
 
 }
