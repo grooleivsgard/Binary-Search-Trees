@@ -280,7 +280,26 @@ public class SBinTre<T> {
     }
 
     public void nullstill() {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        if (tom()) return;
+
+        nullstill(rot);
+
+        rot = null;
+        antall = 0;
+    }
+
+    private void nullstill(Node<T> node){
+        if (node.venstre != null){
+            nullstill(node.venstre);
+            node.venstre = null;
+        }
+        if (node.høyre != null){
+            nullstill(node.høyre);
+            node.høyre = null;
+        }
+
+        node.verdi = null;
+        node.forelder = null;
     }
 
     // ------- OPPGAVE 3 ------------------
