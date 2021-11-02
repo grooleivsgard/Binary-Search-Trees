@@ -10,14 +10,10 @@ public class SBinTre<T> {
         SBinTre<Integer> tre =
                 new SBinTre<>(Comparator.naturalOrder());
 
-        // legger inn verdier i treet
-        int[] a = {10, 6, 14, 1, 8, 12, 3, 7, 9, 11, 13, 2, 5, 4};
+        int[] a = {10, 14, 6, 8, 1, 12, 7, 3, 11, 9, 13, 5, 2, 4};
         for (int verdi : a) tre.leggInn(verdi);
-        //Denne lambda-funksjonen skriver ut mellomrom før nodens verdi.
-        AtomicReference<String> postorden = new AtomicReference<>();
-        Oppgave<Integer> oppgave = c -> postorden.set(postorden.get() + " " + c.toString()) ;
 
-        tre.postordenRecursive(oppgave);
+        System.out.println(tre.serialize());
     }
 
     private static final class Node<T>   // en indre nodeklasse
@@ -153,6 +149,7 @@ public class SBinTre<T> {
      * @param verdi som skal fjernes.
      * @return true dersom verdien er funnet og fjernet.
      */
+
     public boolean fjern(T verdi) {
 
         if (verdi == null) return false;
@@ -185,7 +182,6 @@ public class SBinTre<T> {
                 barn = node.høyre; //Barnet ligger til høyre
             }
 
-            //Kun ett barn / bladnode
             if(barn != null){
                 barn.forelder = forelder;
             }
@@ -399,7 +395,6 @@ public class SBinTre<T> {
      * @param oppgave som skriver ut treet.
      */
     public void postordenRecursive(Oppgave<? super T> oppgave) {
-
         postordenRecursive(rot, oppgave);
     }
 
@@ -458,15 +453,6 @@ public class SBinTre<T> {
      */
     static <K> SBinTre<K> deserialize(ArrayList<K> data, Comparator<? super K> c) {
 
-        /**
-         * Deserialize skal da ta dette
-         * arrayet, og legge inn alle verdiene (igjen i nivå orden), og dermed gjenskape treet.
-         */
-
-        //ALT 1
-        //Legger verdi på indeks en inn i rot-node
-        //Legger neste indeks inn i rot-node.venstre barn
-        //Legger neste indeks inn i rot-node.høyre barn
 
         //oppretter tre
         SBinTre<K> tre = new SBinTre<>(c);
@@ -475,10 +461,7 @@ public class SBinTre<T> {
         for (int i = 0; i < data.size(); i++) {
             tre.leggInn(data.get(i));
         }
-
-        //Hvordan returnere treet?
         return tre;
-
     }
 
 }
