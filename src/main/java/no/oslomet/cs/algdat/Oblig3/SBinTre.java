@@ -1,10 +1,7 @@
 package no.oslomet.cs.algdat.Oblig3;
 
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Objects;
-import java.util.StringJoiner;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class SBinTre<T> {
@@ -112,23 +109,22 @@ public class SBinTre<T> {
         Objects.requireNonNull(verdi, "Ulovlig med nullverdier!");
 
 
-        if(rot == null){
+        if (rot == null) {
             //Treet er tomt
             rot = new Node<>(verdi, null);
-        }
-        else {
+        } else {
             //Treet er ikke tomt
             //Node pekere p og q blir initialisert,
             // samt variabel cmp til sammenligning av verdier.
             Node<T> p = rot;
-            Node <T> q = null;
+            Node<T> q = null;
             int cmp;
 
-            while(p != null){
+            while (p != null) {
                 //setter q-pekeren til p, og flytter p slik at q peker på forelder til p
                 q = p;
                 cmp = comp.compare(verdi, p.verdi);
-                if(cmp < 0) //verdiene er like
+                if (cmp < 0) //verdiene er like
                 {
                     p = p.venstre;
                 } else //verdiene er ikke like
@@ -138,17 +134,24 @@ public class SBinTre<T> {
             }
             //finner plassen i treet hvor verdien skal legges inn
             cmp = comp.compare(verdi, q.verdi);
-            if(cmp == -1){ //verdi < q.verdi
+            if (cmp == -1) { //verdi < q.verdi
                 q.venstre = new Node<>(verdi, q);
             } else { //verdi >= q.verdi
                 q.høyre = new Node<>(verdi, q);
             }
 
+
         }
+        endringer++;
         antall++;
         return true;
     }
 
+    /**
+     * Bruker programkode 5.2.8 d).
+     * @param verdi
+     * @return
+     */
     public boolean fjern(T verdi) {
         throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
@@ -159,6 +162,7 @@ public class SBinTre<T> {
 
 
     // ------- OPPGAVE 2 ------------------
+
     /**
      * Denne metoden teller antall forekomster av en verdi i et BST.
      * Metoden bruker en liknende while-løkke som i inneholder(), men den fortsetter
@@ -175,7 +179,7 @@ public class SBinTre<T> {
 
 
         //sjekker først om listen er tom, og at listen inneholder verdien vi leter etter
-        if(!tom() && inneholder(verdi)){
+        if (!tom() && inneholder(verdi)) {
 
             //setter node-peker p til rot-noden
             Node<T> p = rot;
@@ -201,9 +205,11 @@ public class SBinTre<T> {
     }
 
     // ------- OPPGAVE 3 ------------------
+
     /**
      * Metoden finner første postorden i et Binary Search Tree.
-     * @param p er rotpekeren.
+     *
+     * @param p   er rotpekeren.
      * @param <T> Node er av type Generics.
      * @return første node i postorden.
      */
@@ -212,10 +218,10 @@ public class SBinTre<T> {
         //Bruker Programkode 5.1.7 h) i kompendiet.
         //Finner første postorden ved å traverse til bladnoden lengst til venstre i treet.
 
-        while(true) {
-            if (p.venstre != null){
+        while (true) {
+            if (p.venstre != null) {
                 p = p.venstre;
-            } else if (p.høyre != null){
+            } else if (p.høyre != null) {
                 p = p.høyre;
             } else {
                 return p;
@@ -225,23 +231,24 @@ public class SBinTre<T> {
 
     /**
      * Metoden finner neste node i postorden.
-     * @param p nodepekeren vi bruker til å finne neste postorden.
+     *
+     * @param p   nodepekeren vi bruker til å finne neste postorden.
      * @param <T> Noden er av type Generics.
      * @return noden som kommer etter p i postorden.
      */
     private static <T> Node<T> nestePostorden(Node<T> p) {
 
         //hvis nestePostOrden er roten
-        if(p.forelder == null){
+        if (p.forelder == null) {
             return null;
         }
 
         //hvis p er høyre barn til forelder
-        if(p == p.forelder.høyre) {
-           return p.forelder;
+        if (p == p.forelder.høyre) {
+            return p.forelder;
         }
         //hvis p er venstre barn til forelder
-        else if (p == p.forelder.venstre){
+        else if (p == p.forelder.venstre) {
             //hvis venstre barn er enebarn
             if (p.forelder.høyre == null) {
                 return p.forelder;
@@ -264,6 +271,7 @@ public class SBinTre<T> {
      * Metoden finner først førstePostorden, for deretter å
      * gå inn i en while løkke som finner nestePostorden og skriver ut disse i postorden
      * frem til noden sin verdi er null.
+     *
      * @param oppgave som skriver ut treet.
      */
     public void postorden(Oppgave<? super T> oppgave) {
@@ -274,7 +282,7 @@ public class SBinTre<T> {
 
         //Så lenge nestePostorden ikke er null, skrives p.verdi ut
         // og p blir endret til nestePostorden.
-        while(nestePostorden(p) != null){
+        while (nestePostorden(p) != null) {
             oppgave.utførOppgave(p.verdi);
             p = nestePostorden(p);
         }
@@ -285,6 +293,7 @@ public class SBinTre<T> {
 
     /**
      * Metodene har et rekursivt kall som traverserer treet i postorden rekkefølge.
+     *
      * @param oppgave som skriver ut treet.
      */
     public void postordenRecursive(Oppgave<? super T> oppgave) {
@@ -295,7 +304,7 @@ public class SBinTre<T> {
     private void postordenRecursive(Node<T> p, Oppgave<? super T> oppgave) {
 
         //Basistilfellet
-        if(p == null) return;
+        if (p == null) return;
 
         //Traverserer binærtreet etter postorden
 
@@ -315,5 +324,4 @@ public class SBinTre<T> {
         throw new UnsupportedOperationException("Ikke kodet ennå!");
     }
 
-
-} // ObligSBinTre
+}
