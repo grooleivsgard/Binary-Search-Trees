@@ -148,9 +148,10 @@ public class SBinTre<T> {
     }
 
     /**
-     * Bruker programkode 5.2.8 d).
-     * @param verdi
-     * @return
+     * Metoden skal fjerne en verdi tilhørende en node. Bruker programkode 5.2.8 d), men har lagt til
+     * en if-setning som bytter forelder-pekeren til barnet (som skal fjernes).
+     * @param verdi som skal fjernes.
+     * @return true dersom verdien er funnet og fjernet.
      */
     public boolean fjern(T verdi) {
 
