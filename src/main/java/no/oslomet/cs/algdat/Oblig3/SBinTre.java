@@ -153,7 +153,73 @@ public class SBinTre<T> {
      * @return
      */
     public boolean fjern(T verdi) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+
+        if (verdi == null) return false;
+
+        //Se på video på canvas, bare merk at det er en feil i videoen
+        Node<T> node = rot;
+        Node <T> forelder = null;
+
+        //Bruker en while løkke til å finne verdien i treet
+        while (node != null) {
+            int cmp = comp.compare(verdi, node.verdi); //sammenligner verdier
+            if (cmp < 0) { //verdi < node.verdi
+                forelder = node;
+                node = node.venstre; // går til venstre
+            } else if (cmp > 0) { //verdi > node.verdi
+                forelder = node;
+                node = node.høyre;
+            } else break; // verdi = node.verdi (cmp = 0)
+        }
+
+        if (node == null) return false; //finner ikke verdien -- hva er poenget med denne?
+
+        //Sjekker om noden kun har ett barn
+        if (node.venstre == null || node.høyre == null) {
+            Node<T> barn;
+
+            if (node.venstre != null) { //Barnet ligger til venstre
+                barn = node.venstre;
+            } else {
+                barn = node.høyre; //Barnet ligger til høyre
+            }
+
+            //Kun ett barn / bladnode
+            if(barn != null){
+                barn.forelder = forelder;
+            }
+
+            if (node == rot) {
+                rot = barn; //Noden er rotnoden
+            } else if (node == forelder.venstre) { //Hvis node er en venstre node
+                forelder.venstre = barn; //bytter venstre node med barnet funnet ovenfor
+
+            } else { //Node er høyre node
+                forelder.høyre = barn; //bytter høyre node med barnet funnet ovenfor
+            }
+        }
+        //Har to barn eller ingen barn
+        else {
+            Node<T> sub_forelder = node;
+            Node <T> sub_node = node.høyre;
+
+            //Finner neste in orden
+            while (sub_node.venstre != null) {
+                sub_forelder = sub_node;
+                sub_node = sub_node.venstre;
+            }
+
+            node.verdi = sub_node.verdi; //r er neste in orden
+
+            if (sub_forelder != node) { //hvis
+                sub_forelder.venstre = sub_node.høyre;
+            } else {
+                sub_forelder.høyre = sub_node.høyre;
+            }
+        }
+
+        antall--;
+        return true;
     }
 
     public int fjernAlle(T verdi) {
