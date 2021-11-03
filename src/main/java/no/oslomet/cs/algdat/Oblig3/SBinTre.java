@@ -6,16 +6,6 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class SBinTre<T> {
 
-    public static void main(String[] args) {
-        SBinTre<Integer> tre =
-                new SBinTre<>(Comparator.naturalOrder());
-
-        int[] a = {10, 14, 6, 8, 1, 12, 7, 3, 11, 9, 13, 5, 2, 4};
-        for (int verdi : a) tre.leggInn(verdi);
-
-        System.out.println(tre.serialize());
-    }
-
     private static final class Node<T>   // en indre nodeklasse
     {
         private T verdi;                   // nodens verdi
