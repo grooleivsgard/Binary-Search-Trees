@@ -36,3 +36,4 @@ binærtreet i postorden rekkefølge ved hjelp av en while-løkke, frem til siste
 metodene traverserte jeg binærtreet i postorden rekkefølge ved å kalle rekursivt på venstre og høyre barn, og til slutt
 skrive ut verdiene med utførOppgave. Basistilfellet er satt til når pekeren p blir null.
 
+I oppgave 5, for metoden serialize(), opprettet jeg både en ArrayList og en kø. Køen ble brukt til å flytte current-pekeren til den neste noden i treet i nivårorden etterhvert som hver node ble lagt inn i ArrayListen og dermed fjernet fra køen. Dette while-løkken foregår så lenge køen ikke er tom, noe den vil være når det ikke er flere noder igjen. I metoden deserialize(), blir verdiene fra en ArrayList lagt inn i et tomt binærtre ved hjelp av en for-løkke og metoden leggInn(). 
