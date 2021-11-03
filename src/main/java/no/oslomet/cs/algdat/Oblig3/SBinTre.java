@@ -170,37 +170,48 @@ public class SBinTre<T> {
             } else break; // verdi = node.verdi (cmp = 0)
         }
 
-        if (node == null) return false; //finner ikke verdien -- hva er poenget med denne?
+        if (node == null) return false; //finner ikke verdien
 
-        //Sjekker om noden kun har ett barn
+        //Tilfelle 1) har ett barn eller 2) har ingen barn
         if (node.venstre == null || node.høyre == null) {
             Node<T> barn;
 
-            if (node.venstre != null) { //Barnet ligger til venstre
+            // 1) Finner først hvor et evt barn  ligger
+            //Barnet ligger til venstre
+            if (node.venstre != null) {
                 barn = node.venstre;
-            } else {
-                barn = node.høyre; //Barnet ligger til høyre
+            }
+            //Barnet ligger til høyre
+            else {
+                barn = node.høyre;
             }
 
+            //Endrer barnets forelder til noden's forelder
             if(barn != null){
                 barn.forelder = forelder;
             }
 
+            // 2) Finner så om noden vi skal fjerne er en høyre eller venstre node
+            //Rotnode - ingen forelder
             if (node == rot) {
-                rot = barn; //Noden er rotnoden
-            } else if (node == forelder.venstre) { //Hvis node er en venstre node
+                rot = barn;
+            }
+            //Node ligger til venstre. Flytter forelder sin venstrepeker til noden's barn.
+            else if (node == forelder.venstre) {
                 forelder.venstre = barn; //bytter venstre node med barnet funnet ovenfor
 
-            } else { //Node er høyre node
-                forelder.høyre = barn; //bytter høyre node med barnet funnet ovenfor
+            }
+            //Node ligger til høyre. Flytter forelder sin høyrepeker til noden's barn.
+            else {
+                forelder.høyre = barn;
             }
         }
-        //Har to barn eller ingen barn
+        //Tilfelle 3: Har to barn
         else {
             Node<T> sub_forelder = node;
             Node <T> sub_node = node.høyre;
 
-            //Finner neste in orden
+            //Finner neste in orden som skal erstatte noden's plass for å opprettholde sorteringen
             while (sub_node.venstre != null) {
                 sub_forelder = sub_node;
                 sub_node = sub_node.venstre;
@@ -208,7 +219,7 @@ public class SBinTre<T> {
 
             node.verdi = sub_node.verdi; //r er neste in orden
 
-            if (sub_forelder != node) { //hvis
+            if (sub_forelder != node) {
                 sub_forelder.venstre = sub_node.høyre;
             } else {
                 sub_forelder.høyre = sub_node.høyre;
