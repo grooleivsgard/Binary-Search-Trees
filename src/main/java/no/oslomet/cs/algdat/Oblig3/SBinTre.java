@@ -143,6 +143,8 @@ public class SBinTre<T> {
         return true;
     }
 
+    // --------- OPPGAVE 6 --------------
+
     /**
      * Metoden skal fjerne en verdi tilhørende en node. Bruker programkode 5.2.8 d), men har lagt til
      * en if-setning som bytter forelder-pekeren til barnet (som skal fjernes).
@@ -286,6 +288,7 @@ public class SBinTre<T> {
 
     }
 
+    // -------- OPPGAVE 6 --------------
     /**
      * Metoden traverserer treet rekursivt ved at det er blitt lagt til en privat metode som
      * sjekker en node's venstre og høyre barn og fjerner disse i postorden.
@@ -423,6 +426,8 @@ public class SBinTre<T> {
         //Utfører oppgaven på denne noden
         oppgave.utførOppgave(p.verdi);
     }
+
+    // --------- OPPGAVE 5 -----------
 
     /**
      * Metoden serialize går iterativt gjennom et binærtre i nivåorden og legger verdier inn i en ArrayList
